@@ -3,11 +3,8 @@
 #상하좌우 네 방향으로만 이동 가능
 #1은 배추가 심어져 있는곳 0은 없는곳 
 T = int(input())
-M, N, K = map(int,input().split())
-field = [[0]*(N) for _ in range(M)]
 dx = [-1,1,0,0]
 dy = [0,0,-1,1]
-cnt = 0
 
 def BFS(x,y):
     queue = [(x,y)]
@@ -21,16 +18,21 @@ def BFS(x,y):
             if nx < 0 or ny < 0 or nx >= M or ny >= N:
                 continue
             if field[nx][ny] == 1: 
-               queue.append((nx,ny))
-               field[nx][ny] = 0
+                queue.append((nx,ny))
+                field[nx][ny] = 0
 
+for i in range(T):
+    M, N, K = map(int,input().split())
+    field = [[0]*(N) for _ in range(M)]
+    cnt = 0
 
-for _ in range(K):
-    x,y = map(int,input().split())
-    field[x][y] = 1
+    for _ in range(K):
+        x,y = map(int,input().split())
+        field[x][y] = 1
 
-for i in range(M):
-    for j in range(N):
-        if field[i][j] == 1:
-            BFS(i,j)
-            cnt += 1
+    for i in range(M):
+        for j in range(N):
+            if field[i][j] == 1:
+                BFS(i,j)
+                cnt += 1
+    print(cnt)        
