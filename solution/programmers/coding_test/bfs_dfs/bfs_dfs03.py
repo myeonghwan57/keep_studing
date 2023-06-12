@@ -4,22 +4,26 @@ def solution(maps):
 
     dx = [-1, 1, 0, 0]
     dy = [0, 0, -1, 1]
+    
+    #방문
+    visited = [[False]*len(maps[0]) for _ in range(len(map))]
 
     def bfs(x, y):
         queue = deque()
         queue.append((x, y))
-       
+        #내가 있는 위치
+        visited[0][0] = True
         while queue:
             x, y = queue.popleft()
             
             for i in range(4):
                 nx = x + dx[i]
                 ny = y + dy[i]
-                if nx < 0 or nx >= len(maps) or ny < 0 or ny >= len(maps[0]): continue
-                if maps[nx][ny] == 0:  continue  
-                if maps[nx][ny] == 1:
-                    maps[nx][ny] = maps[x][y] + 1
-                    queue.append((nx, ny))      
+                if 0 < nx < len(maps) and 0 < ny < len(maps[0]) and maps[nx][ny] == 1: 
+                    if visited[nx][nx] == 'False':
+                        visited[nx][ny] == True
+                        maps[nx][ny] = maps[x][y] + 1
+                        queue.append((nx, ny))      
         
         return maps[len(maps)-1][len(maps[0])-1]
     
